@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="CodeHim">
+    <title> CART </title>
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="css/cart.css">
+  
+  </head>
+  <body>
+      
+ <main>
+     
+<header id="site-header">
+
+	<div>
+		<a href="./">BACK?</a>
+	</div>
+		<div class="container">
+			<h1>Shopping cart </h1>
+		</div>
+	</header>
+<% if(cart.length!=0){ %>
+    <% cart.forEach(function(item){ %>
+	<div class="container">
+
+		<section id="cart"> 
+			<article class="product">
+				<header>
+					<a class="remove">
+						<img src=<%= item.image %> alt=<%= item.name %> >
+
+						<h3>
+                            <form action="/remove" method="post">
+                          <input type="hidden" name="id" value="<%= item.id %>" >
+                           <input type="submit" value="remove">
+
+                        </form>
+
+                    </h3>
+					</a>
+				</header>
+
+				<div class="content">
+
+					<h1><%= item.name %></h1>
+                    <p1><%= item.description %></p1>
+	
+			
+				</div>
+
+				<footer class="content">
+					<span class="qt-minus">
+                    <form action="/decrease" method="post">
+                        <input type="hidden" value="<%= item.id %>" name="id">
+                       <input type="submit" value="-" name="decrease_qty">
+                        
+                    </form>
+                    </span>
+					<span class="qt"><%= item.quantity %></span>
+					<span class="qt-plus">
+                        <form action="/increase" method="post">
+                            <input type="hidden" value="<%= item.id %>" name="id">
+                            <input type="submit" value="+" name="increase_qty">
+          
+                    </form>                    
+                        </span>
+
+					<h2 class="price">
+						<%= item.price %>
+					</h2>
+				</footer>
+			</article>
+
+		</section>
+
+
+	</div>
+    <% }) %>   
+    <%   } %>
+	<footer id="site-footer">
+		<div class="container clearfix">
+
+			<div class="right">
+				<h1 class="total">Total: Rs. <%= total %> </h1>
+                        
+				<form action="/checkout" method="post">
+                    <input type="submit" value="Checkout">
+                    
+                </form>
+			</div>
+
+		</div>
+	</footer>
+ </main>
+      
+  </body>
+</html>
